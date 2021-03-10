@@ -45,6 +45,10 @@ const mapDispatchToProps = (dispatch) => {
         if (count > 10) {
           // dung ham set Interval
           clearInterval(randomComputeItem);
+          dispatch({
+              type:'END_GAME',
+              
+          })
         }
       }, 100);
     },
