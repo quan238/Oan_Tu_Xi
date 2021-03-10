@@ -9,7 +9,10 @@ class Player extends Component {
         <div className="theThink">
           <img
             className="mt-3"
-            src={this.props.mangDatCuoc.find(item=>item.datCuoc===true).hinhAnh}
+            src={
+              this.props.mangDatCuoc.find((item) => item.datCuoc === true)
+                .hinhAnh
+            }
             style={{ width: 60, height: 60, transform: "rotate(180deg)" }}
             alt=""
           />
@@ -28,8 +31,14 @@ class Player extends Component {
               border = { border: "3px solid orange" };
             }
             return (
-              <div className="col-4">
-                <button style={border} className="btnItem">
+              <div className="col-4" key={index}>
+                <button
+                  onClick={() => {
+                    this.props.datCuoc(item.ma);
+                  }}
+                  style={border}
+                  className="btnItem"
+                >
                   <img style={{ width: 30 }} src={item.hinhAnh} alt="" />
                 </button>
               </div>
@@ -45,4 +54,14 @@ const mapStateToProps = (state) => {
     mangDatCuoc: state.OanTuXiReducer.mangDatCuoc,
   };
 };
-export default connect(mapStateToProps)(Player);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    datCuoc: (maCuoc) => {
+      dispatch({
+        type: "CHON_KEO_BUA_BAO",
+        maCuoc,
+      });
+    },
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Player);
